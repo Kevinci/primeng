@@ -35,12 +35,12 @@ describe('Slider', () => {
 
         const sliderEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const clickSpy = spyOn(slider, 'updateDomData').and.callThrough();
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
         sliderEl.click();
         fixture.detectChanges();
 
-        expect(sliderEl.className).toContain('ui-state-disabled');
+        expect(sliderEl.className).toContain('p-disabled');
         expect(clickSpy).not.toHaveBeenCalled();
         expect(slider.dragging).not.toEqual(true);
     });
@@ -51,17 +51,17 @@ describe('Slider', () => {
 
         const sliderEl = fixture.debugElement.query(By.css('div')).nativeElement;
         sliderEl.click();
-        expect(sliderEl.className).toContain('ui-slider-animate');
+        expect(sliderEl.className).toContain('p-slider-animate');
     });
 
     it('should change styles', () => {
-        slider.style = {'primeng':'rocks!'};
+        slider.style = {'height':'300px'};
         slider.styleClass = "Primeng ROCKS!";
         fixture.detectChanges();
 
         const sliderEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(sliderEl.className).toContain("Primeng ROCKS!");
-        expect(sliderEl.style.primeng).toEqual("rocks!");
+        expect(sliderEl.style.height).toEqual("300px");
     });
 
     it('should change orientation', () => {
@@ -69,7 +69,7 @@ describe('Slider', () => {
         fixture.detectChanges();
 
         const sliderEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        expect(sliderEl.className).toContain("ui-slider-vertical");
+        expect(sliderEl.className).toContain("p-slider-vertical");
     });
 
     it('should have a range', () => {
@@ -87,6 +87,7 @@ describe('Slider', () => {
         slider.updateValue(19);
         fixture.detectChanges();
 
+        slider.cd.detectChanges();
         const spanEl = fixture.debugElement.query(By.css('span')).nativeElement;
         expect(slider.handleValue).toEqual(0);
         expect(spanEl.style.width).toEqual('0%');
@@ -99,12 +100,15 @@ describe('Slider', () => {
         slider.updateValue(91);
         fixture.detectChanges();
 
+        slider.cd.detectChanges();
         const spanEl = fixture.debugElement.query(By.css('span')).nativeElement;
         expect(slider.handleValue).toEqual(100);
         expect(spanEl.style.width).toEqual('100%');
     });
 
     it('should listen onChange', () => {
+        fixture.detectChanges();
+
         let value = 1;
         slider.onChange.subscribe(data => value = data.value);
         slider.updateValue(91);
@@ -114,6 +118,8 @@ describe('Slider', () => {
     });
 
     it('should change value with touch events (horizontal)', () => {
+        fixture.detectChanges();
+
         slider.updateValue(91);
         slider.handleValue = 91;
         fixture.detectChanges();
@@ -128,7 +134,7 @@ describe('Slider', () => {
             'clientX': 400,
         }];
         touchmoveEvent.initEvent('touchmove', true, true);
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(touchstartEvent);
         fixture.detectChanges();
         
@@ -139,6 +145,8 @@ describe('Slider', () => {
     });
 
     it('should change value with touch events (vertical)', () => {
+        fixture.detectChanges();
+
         slider.orientation = "vertical";
         slider.updateValue(91);
         slider.handleValue = 91;
@@ -154,7 +162,7 @@ describe('Slider', () => {
             'clientY': 450,
         }];
         touchmoveEvent.initEvent('touchmove', true, true);
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(touchstartEvent);
         fixture.detectChanges();
         
@@ -168,7 +176,7 @@ describe('Slider', () => {
         fixture.detectChanges();
 
         const bindDragListenersSpy = spyOn(slider,"bindDragListeners").and.callThrough();
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
         fixture.detectChanges();
 
@@ -198,7 +206,7 @@ describe('Slider', () => {
         fixture.detectChanges();
 
         const bindDragListenersSpy = spyOn(slider,"bindDragListeners").and.callThrough();
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
         fixture.detectChanges();
 
@@ -228,7 +236,7 @@ describe('Slider', () => {
         slider.step = 2;
         fixture.detectChanges();
 
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
         fixture.detectChanges();
 
@@ -256,7 +264,7 @@ describe('Slider', () => {
         slider.max = 2.5;
         fixture.detectChanges();
 
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
         fixture.detectChanges();
 
@@ -282,7 +290,7 @@ describe('Slider', () => {
         slider.step = 2;
         fixture.detectChanges();
 
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
         fixture.detectChanges();
 
@@ -310,7 +318,7 @@ describe('Slider', () => {
         slider.max = 2.5;
         fixture.detectChanges();
 
-        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        const spanEl = fixture.debugElement.query(By.css(".p-slider-handle"));
         spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
         fixture.detectChanges();
 
@@ -339,7 +347,7 @@ describe('Slider', () => {
         slider.style = {'width':'600px'};
         fixture.detectChanges();
 
-        const sliderHandlers = fixture.debugElement.queryAll(By.css(".ui-slider-handle"));
+        const sliderHandlers = fixture.debugElement.queryAll(By.css(".p-slider-handle"));
         const firstSliderHandler = sliderHandlers[0];
         firstSliderHandler.nativeElement.dispatchEvent(new Event("mousedown"));
         expect(slider.dragging).toEqual(true);
@@ -362,7 +370,7 @@ describe('Slider', () => {
         slider.values = [20,80];
         fixture.detectChanges();
 
-        const sliderHandlers = fixture.debugElement.queryAll(By.css(".ui-slider-handle"));
+        const sliderHandlers = fixture.debugElement.queryAll(By.css(".p-slider-handle"));
         const firstSliderHandler = sliderHandlers[0];
         firstSliderHandler.nativeElement.dispatchEvent(new Event("mousedown"));
         expect(slider.dragging).toEqual(true);
